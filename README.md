@@ -1,0 +1,1 @@
+On this repositoary are all my laboratories from my Faculty. All of the code here was studied by proffesors and with the help of these laboratories I have completed these courses(The folders are the names of the courses).
