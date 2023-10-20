@@ -1,1 +1,1 @@
-On this repositoary are all my laboratories from my Faculty. All of the code here was studied by professors and with the help of these laboratories I have completed these courses(The folders are the names of the courses).
+All of my faculty-related laboratory work and assignments are on this repository. Professors have examined every line of code, and I was able to complete these subjects with the assistance of these laboratories(the folder names are the subjects).
