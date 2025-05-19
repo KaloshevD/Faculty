@@ -1,0 +1,52 @@
+import java.util.*;
+
+public class TreeLeaves {
+    static Map<Integer, List<Integer>> tree = new HashMap<>();
+    static Map<Integer, Integer> leafCountCache = new HashMap<>();
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        int N = sc.nextInt(); // Number of nodes
+        int Q = sc.nextInt(); // Number of queries
+
+        for (int i = 0; i < N + Q; i++) {
+            String command = sc.next();
+            if (command.equals("root")) {
+                int root = sc.nextInt();
+                tree.put(root, new ArrayList<>());
+            } else if (command.equals("add")) {
+                int parent = sc.nextInt();
+                int child = sc.nextInt();
+                tree.putIfAbsent(parent, new ArrayList<>());
+                tree.putIfAbsent(child, new ArrayList<>());
+                tree.get(parent).add(child);
+            } else if (command.equals("ask")) {
+                int nodeIndex = sc.nextInt();
+                leafCountCache.clear();
+                int leafCount = countLeaves(nodeIndex);
+                System.out.println(leafCount);
+            }
+        }
+
+        sc.close();
+    }
+
+    public static int countLeaves(int node) {
+        if (leafCountCache.containsKey(node)) {
+            return leafCountCache.get(node);
+        }
+
+        if (!tree.containsKey(node) || tree.get(node).isEmpty()) {
+            leafCountCache.put(node, 1);
+            return 1;
+        }
+        int leafCount = 0;
+        for (int child : tree.get(node)) {
+            leafCount += countLeaves(child);
+        }
+
+        leafCountCache.put(node, leafCount);
+        return leafCount;
+    }
+}

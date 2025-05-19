@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F1 Drivers</title>
+
+    <link rel="stylesheet" href="../jquery-ui.css">
+    <script src="../jquery.js"></script>
+    <script src="../jquery-ui.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            display: flex;
+            gap: 20px;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+            width: 200px;
+            min-height: 300px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 10px;
+        }
+        li {
+            margin: 5px;
+            padding: 5px;
+            background: #f0f0f0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            cursor: move;
+        }
+        #details {
+            margin-top: 20px;
+        }
+        #details a {
+            color: blue;
+            text-decoration: none;
+        }
+        .social-media {
+            margin-top: 20px;
+        }
+        .social-media img {
+            width: 32px;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+<h1>F1 Drivers (2016 & 2017)</h1>
+
+<div class="container">
+    <ul id="drivers2016" class="driver-list">
+    </ul>
+    <ul id="drivers2017" class="driver-list">
+    </ul>
+    <ul id="favorites" class="driver-list">
+        <li class="placeholder">Drag your favorite drivers here</li>
+    </ul>
+
+    <div id="details">
+        <h3>Driver Details</h3>
+        <p id="driverInfo">Click on a driver to view details.</p>
+    </div>
+
+</div>
+
+<div class="social-media">
+    <a href="https://facebook.com" target="_blank"><img src="facebook.png" alt="Facebook"></a>
+    <a href="https://twitter.com" target="_blank"><img src="twitter.png" alt="Twitter"></a>
+    <a href="https://instagram.com" target="_blank"><img src="instagram.png" alt="Instagram"></a>
+</div>
+
+<script>
+    $(function () {
+        function fetchDrivers(season, listId) {
+            const apiUrl = `https://ergast.com/api/f1/${season}/drivers.json`;
+            console.log(apiUrl)
+            $.ajax({
+                url: apiUrl,
+                method: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    const drivers = data.MRData.DriverTable.Drivers;
+                    const list = $(`#${listId}`);
+                        drivers.forEach(driver => {
+                            const listItem = $(
+                                `<li data-number="${driver.permanentNumber || 'N\A'}"
+                                         data-dob="${driver.dateOfBirth}"
+                                         data-nationality="${driver.nationality}"
+                                         data-url="${driver.url}">
+                                        ${driver.givenName} ${driver.familyName}
+                                     </li>`
+                            );
+                            list.append(listItem);
+                        });
+
+                }
+            });
+        }
+
+        fetchDrivers(2016, 'drivers2016');
+        fetchDrivers(2017, 'drivers2017');
+
+        $(".driver-list").sortable({
+            connectWith: ".driver-list",
+            placeholder: "ui-state-highlight",
+            receive: function (event, ui) {
+                if ($(this).children('li').length === 0) {
+                    $(this).append('<li class="placeholder">Drag your favorite drivers here</li>');
+                }
+                $(this).children('.placeholder').remove();
+            }
+        }).disableSelection();
+
+        $(document).on("click", "#favorites li", function () {
+            const number = $(this).data("number");
+            const dob = $(this).data("dob");
+            const nationality = $(this).data("nationality");
+            const url = $(this).data("url");
+
+            $("#driverInfo").html(
+                `<strong>Number:</strong> ${number}<br>
+                     <strong>Date of Birth:</strong> ${dob}<br>
+                     <strong>Nationality:</strong> ${nationality}<br>
+                     <strong>Biography:</strong> <a href="${url}" target="_blank">View Bio</a>`
+            );
+        });
+    });
+</script>
+</body>
+</html>

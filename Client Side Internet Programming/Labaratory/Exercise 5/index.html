@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Table</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="container">
+    <h1>Student Test Results</h1>
+    <table id="studentTable">
+        <thead>
+        <tr>
+            <th>Number</th>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Points</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Rows will be populated dynamically by JavaScript -->
+        </tbody>
+    </table>
+    <div class="buttons">
+        <button id="passedButton">PASSED</button>
+        <button id="failedButton">FAILED</button>
+        <button id="clearButton">CLEAR</button>
+    </div>
+    <p id="resultText"></p>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
