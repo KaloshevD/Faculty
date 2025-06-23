@@ -1,4 +1,4 @@
-// Sample student data
+
 const students = [
     { number: 1 , name: "Alice", surname: "Smith", points: 78 },
     { number: 2 , name: "Bob", surname: "Johnson", points: 45 },
@@ -6,8 +6,6 @@ const students = [
     { number: 4 , name: "Diana", surname: "Brown", points: 30 },
     { number: 5 , name: "Eve", surname: "Davis", points: 95 },
 ];
-
-// Populate the table with student data
 const tableBody = document.querySelector("#studentTable tbody");
 students.forEach(student => {
     const row = document.createElement("tr");
@@ -19,14 +17,11 @@ students.forEach(student => {
   `;
     tableBody.appendChild(row);
 });
-
-// Buttons
 const passedButton = document.getElementById("passedButton");
 const failedButton = document.getElementById("failedButton");
 const clearButton = document.getElementById("clearButton");
 const resultText = document.getElementById("resultText");
 
-// Highlight passed rows
 passedButton.addEventListener("click", () => {
     let passedCount = 0;
     const rows = tableBody.querySelectorAll("tr");
@@ -43,7 +38,6 @@ passedButton.addEventListener("click", () => {
     resultText.textContent = `Passed: ${passedCount}`;
 });
 
-// Highlight failed rows
 failedButton.addEventListener("click", () => {
     let failedCount = 0;
     const rows = tableBody.querySelectorAll("tr");
@@ -60,7 +54,8 @@ failedButton.addEventListener("click", () => {
     resultText.textContent = `Failed: ${failedCount}`;
 });
 
-// Clear all highlights
+
+
 clearButton.addEventListener("click", () => {
     const rows = tableBody.querySelectorAll("tr");
     rows.forEach(row => {
