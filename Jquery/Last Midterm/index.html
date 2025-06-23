@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ipks Group 2</title>
+    <link rel="stylesheet" href="jquery-ui.css">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            display: flex;
+            width: 80%;
+        }
+
+        .panel {
+            flex: 1;
+            margin: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .panel.hidden {
+            display: none;
+        }
+
+        .book-details {
+            display: none;
+        }
+
+        .favorites {
+            margin-top: 20px;
+            width: 80%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            margin: 5px 0;
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            cursor: grab;
+        }
+
+        button {
+            margin-top: 10px;
+            padding: 5px 10px;
+        }
+    </style>
+    <script src="jquery.js"></script>
+    <script src="jquery-ui.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <!-- languages -->
+        <div class="panel" id="languages-panel">
+            <h3>Programming Languages</h3>
+            <ul>
+                <li data-language="python">Python</li>
+                <li data-language="java">Java</li>
+                <li data-language="javascript">JavaScript</li>
+                <li data-language="kotlin">Kotlin</li>
+            </ul>
+        </div>
+
+        <!-- book panel -->
+        <div class="panel" id="books-panel">
+            <h3>Books</h3>
+            <ul id="books-list" class="connected"></ul>
+            <button id="load-more">Load More</button>
+        </div>
+    </div>
+
+    <!-- book details -->
+    <div class="book-details" id="book-details">
+        <h3>Book Details</h3>
+        <p><strong>Title:</strong> <span id="book-title"></span></p>
+        <p><strong>Author(s):</strong> <span id="book-authors"></span></p>
+        <p><strong>Publish Date:</strong> <span id="book-publish-date"></span></p>
+        <p><strong>Publisher:</strong> <span id="book-publisher"></span></p>
+        <button id="back">Back</button>
+    </div>
+
+    <!-- favorite books -->
+    <div class="favorites">
+        <h3>Favorites</h3>
+        <ul id="favorites-list" class="connected">
+            Favorite books go here
+        </ul>
+    </div>
+
+    <script>
+        const API_URL = 'https://openlibrary.org/search.json';
+        let currentLanguage = '';
+        let startIndex = 0;
+        const resultsPerPage = 10;
+
+        $(function () {
+    // fetch books
+    $("#languages-panel li").on("click", function () {
+        currentLanguage = $(this).data("language");
+        startIndex = 0;
+        $("#books-list").empty();
+        fetchBooks();
+        // console.log(currentLanguage);
+    });
+
+    // load more
+    $("#load-more").on("click", function () {
+        fetchBooks();
+    });
+
+    // book details
+    $("#books-list").on("click", "li", function () {
+        const book = $(this).data("book");
+        showBookDetails(book);
+    });
+
+    // back to books
+    $("#back").on("click", function () {
+        $("#book-details").hide();
+        $(".container").show();
+    });
+
+    // drag and dropp
+    $("#books-list, #favorites-list").sortable({
+        connectWith: ".connected",
+        placeholder: "ui-state-highlight"
+    }).disableSelection();
+});
+
+function fetchBooks() {
+    if (!currentLanguage) return;
+
+    $.get(`${API_URL}?q=${currentLanguage}&limit=${resultsPerPage}&offset=${startIndex}`)
+        .done(data => {
+            const books = data.docs;
+            books.forEach(book => {
+                const listItem = $("<li>")
+                    .text(book.title)
+                    .data("book", book);
+                    // console.log(book);
+                $("#books-list").append(listItem);
+            });
+            startIndex += resultsPerPage;
+        });
+}
+
+        function showBookDetails(book) {
+            $("#book-title").text(book.title);
+            $("#book-authors").text(book.author_name?.join(", ") || "Unknown");
+            $("#book-publish-date").text(book.publish_date?.[0] || "Unknown");
+            $("#book-publisher").text(book.publisher?.join(", ") || "Unknown");
+
+            $(".container").hide();
+            $("#book-details").show();
+        }
+
+        // es6 go brr
+        function fetchBooks() {
+            if (!currentLanguage) return;
+
+            $.get(`${API_URL}?q=${currentLanguage}&limit=${resultsPerPage}&offset=${startIndex}`)
+                .done(data => {
+                    const books = data.docs;
+                    books.forEach(book => {
+                        const listItem = $("<li>")
+                            .text(book.title)
+                            .data("book", book);
+                        $("#books-list").append(listItem);
+                    });
+                    startIndex += resultsPerPage;
+                });
+        }
+
+        function showBookDetails(book) {
+            $("#book-title").text(book.title);
+            $("#book-authors").text(book.author_name?.join(", ") || "Unknonw");
+            $("#book-publish-date").text(book.publish_date?.[0] || "Unknown");
+            $("#book-publisher").text(book.publisher?.join(", ") || "Unknown");
+            $(".container").hide();
+            $("#book-details").show();
+        }
+    </script>
+</body>
+
+</html>
