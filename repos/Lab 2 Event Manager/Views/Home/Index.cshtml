@@ -1,0 +1,36 @@
+﻿@model List<EventManager.Models.EventModel>
+
+<h2>Сите Настани</h2>
+
+<a href="@Url.Action("Create", "Event")" class="btn btn-primary">Додади нов настан</a>
+
+
+<table class="table">
+    <tr>
+        <th>ID</th>
+        <th>Име</th>
+        <th>Локација</th>
+        <th>Акции</th>
+    </tr>
+
+    @if (Model != null)
+    {
+        foreach (var e in Model)
+        {
+            <tr>
+                <td>@e.Id</td> 
+                <td>@e.Ime</td>
+                <td>@e.Lokacija</td>
+                <td>
+                    <a href="@Url.Action("Edit", new { id = e.Id })" class="btn btn-warning">Edit</a>
+                    <a href="@Url.Action("Delete", new { id = e.Id })" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    }
+    else
+    {
+        <p>Нема податоци за прикажување.</p>
+    }
+
+</table>

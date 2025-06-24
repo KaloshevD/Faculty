@@ -1,0 +1,53 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Damja\\source\\repos\\LaboratoriskaVezba1\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A3A85BB9-2619-4648-BFB6-8A9BE4F89E66}|LaboratoriskaVezba1.csproj|c:\\users\\damja\\source\\repos\\laboratoriskavezba1\\glasajte.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A3A85BB9-2619-4648-BFB6-8A9BE4F89E66}|LaboratoriskaVezba1.csproj|solutionrelative:glasajte.aspx.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A3A85BB9-2619-4648-BFB6-8A9BE4F89E66}|LaboratoriskaVezba1.csproj|C:\\Users\\Damja\\source\\repos\\LaboratoriskaVezba1\\glasajte.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}",
+      "RelativeMoniker": "D:0:0:{A3A85BB9-2619-4648-BFB6-8A9BE4F89E66}|LaboratoriskaVezba1.csproj|solutionrelative:glasajte.aspx||{57312C73-6202-49E9-B1E1-40EA1A6DC1F6}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Glasajte.aspx",
+              "DocumentMoniker": "C:\\Users\\Damja\\source\\repos\\LaboratoriskaVezba1\\Glasajte.aspx",
+              "RelativeDocumentMoniker": "Glasajte.aspx",
+              "ToolTip": "C:\\Users\\Damja\\source\\repos\\LaboratoriskaVezba1\\Glasajte.aspx",
+              "RelativeToolTip": "Glasajte.aspx",
+              "LogicalView": "7651a702-06e5-11d1-8ebd-00a0c90f26ea",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000195|",
+              "WhenOpened": "2025-03-13T19:07:31.509Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Glasajte.aspx.cs",
+              "DocumentMoniker": "C:\\Users\\Damja\\source\\repos\\LaboratoriskaVezba1\\Glasajte.aspx.cs",
+              "RelativeDocumentMoniker": "Glasajte.aspx.cs",
+              "ToolTip": "C:\\Users\\Damja\\source\\repos\\LaboratoriskaVezba1\\Glasajte.aspx.cs",
+              "RelativeToolTip": "Glasajte.aspx.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADIAAAAwAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-13T11:04:52.374Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

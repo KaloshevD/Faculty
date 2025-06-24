@@ -1,0 +1,25 @@
+﻿@model EventManager.Models.EventModel
+
+<h2>Додади нов настан</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.LabelFor(m => m.Ime)
+    @Html.TextBoxFor(m => m.Ime)
+    @Html.ValidationMessageFor(m => m.Ime)
+
+    <br />
+
+    @Html.LabelFor(m => m.Lokacija)
+    @Html.TextBoxFor(m => m.Lokacija)
+    @Html.ValidationMessageFor(m => m.Lokacija)
+
+    <br />
+    <input type="submit" value="Зачувај" class="btn btn-success" />
+}
+
+<a href="@Url.Action("Index")" class="btn btn-secondary">Назад</a>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
