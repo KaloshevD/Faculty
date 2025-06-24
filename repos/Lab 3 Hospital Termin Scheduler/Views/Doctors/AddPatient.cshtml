@@ -1,0 +1,16 @@
+﻿@model dynamic
+@{
+    ViewBag.Title = "Додади Пациент";
+}
+
+<h2>Додади пациент кај докторот: @ViewBag.DoctorName</h2>
+
+@using (Html.BeginForm())
+{
+    //@Html.Hidden("doctorId", ViewBag.DoctorId)
+    @Html.Label("Пациент")
+    @Html.DropDownList("patientId", ViewBag.PatientId as SelectList, "Избери пациент")
+    <br />
+    <br />
+    <input type="submit" value="Додади" class="btn btn-primary" />
+}
