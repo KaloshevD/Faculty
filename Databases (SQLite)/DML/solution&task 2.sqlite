@@ -1,0 +1,9 @@
+-- Да се напише DML израз со кој ќе се излистаат информациите за авторите кои НЕМААТ издадено ниту една книга на одржан саем. 
+SELECT *
+FROM AUTHOR as a
+WHERE NOT EXISTS(
+    SELECT 1
+    FROM Book_Promotion as bp 
+    JOIN HELD_FAIR as hf on bp.fair_id = hf.fair_id and bp.date = hf.date
+    where bp.author_id = a.author_id
+)

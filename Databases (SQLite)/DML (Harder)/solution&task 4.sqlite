@@ -1,0 +1,22 @@
+-- Да се напише DML израз со кој ќе се излистаат индексите на авторите и имињата на авторите кои се поддржани од 
+-- издавачи со најголем број на спонзори.
+
+WITH cte_sponsorCount as (
+    SELECT publisher_id, COUNT (sponsor) as sp
+    FROM Publisher_Sponsor ps
+    GROUP BY publisher_id
+),
+cte_sponsorMax as (
+    select publisher_id
+    FROM cte_sponsorCount
+    WHERE sp = (
+        SELECT max(sp)
+        from cte_sponsorCount
+    )
+)
+SELECT DISTINCT
+a.author_id,
+a.artistic_name
+FROM author a 
+JOIN Publisher_Promotion pp ON a.author_id = pp.author_id
+JOIN cte_sponsorMax csp ON pp.publisher_id = csp.publisher_id;

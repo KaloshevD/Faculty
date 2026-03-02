@@ -1,0 +1,38 @@
+-- Да се напише DML израз со кој ќе се излистаат за секоја локација, вратете ги првите 3 автори според просечната
+-- оценка од промоција, сметајќи ги само промоциите што се случиле на датумот на одржаниот саем. 
+-- Прикажете го името на авторот, бројот на промовирани книги и просечната оценка. 
+-- Резултатот да биде сортиран според името нa локацијата и просечната оценка.
+
+WITH AuthorStats AS (
+    SELECT
+        l.location_id,
+        l.name AS location_name,
+        a.author_id,
+        a.artistic_name,
+        COUNT(bp.book_title) AS num_books,
+        AVG(bp.rating) AS avg_rating
+    FROM Book_Promotion bp
+    JOIN Author a
+        ON bp.author_id = a.author_id
+    JOIN Fair f
+        ON bp.fair_id = f.fair_id
+    JOIN Held_Fair hf
+        ON f.fair_id = hf.fair_id
+    JOIN Location l
+        ON f.location_id = l.location_id
+    WHERE bp.date = hf.date 
+    GROUP BY l.location_id, a.author_id
+)
+SELECT
+    a1.location_name,
+    a1.artistic_name as author_name,
+    a1.num_books as number_of_books,
+    a1.avg_rating as average_rating
+FROM AuthorStats a1
+WHERE (
+    SELECT COUNT(*)
+    FROM AuthorStats a2
+    WHERE a2.location_id = a1.location_id
+      AND a2.avg_rating > a1.avg_rating
+) < 3
+ORDER BY a1.location_name ASC, a1.avg_rating DESC;
