@@ -1,0 +1,20 @@
+-- Да се напише DML израз со кој ќе се излистаат имињата на авторите и на издавачите, такашто:
+
+-- Прикажи ги имињата на авторите вклучени во промоциите на книги со оценка над 4.
+-- Прикажи ги имињата на издавачи вклучени во промоциите  во текот на 2024 година.
+-- Резултатот треба да вклучува име на автор/издавач, како и тип (кој може да има две вредности Author/Publisher)
+
+
+SELECT DISTINCT p.name AS name, 'Publisher' AS type
+FROM Publisher AS p
+JOIN Publisher_Promotion AS pp 
+    ON p.publisher_id = pp.publisher_id
+WHERE pp.start_date >= '2024-01-01'
+  AND pp.start_date <= '2024-12-31'
+  
+UNION
+
+SELECT DISTINCT a.artistic_name as name, 'Author' AS type
+FROM Author as a
+JOIN Book_Promotion as bp ON a.author_id = bp.author_id
+WHERE bp.rating > 4

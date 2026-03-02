@@ -1,0 +1,16 @@
+-- Да се напише DML израз со кој ќе се излистаат имињата на сите книги кои се презентирани на саем кој што се
+-- изведува на затворена локација (INDOOR) која има најголем капацитет за гости.Имињата на книгите треба да бидат
+-- сортирани во растечки редослед.
+
+WITH MaxIndoor AS (
+    SELECT MAX(capacity) AS max_capacity
+    FROM Location l 
+    JOIN fair f on l.location_id = f.location_id
+    WHERE l.type = 'INDOOR'
+)
+SELECT book_title
+FROM Book_Promotion bp
+JOIN Fair f ON bp.fair_id = f.fair_id
+JOIN Location l ON f.location_id = l.location_id
+WHERE l.type = 'INDOOR' AND l.capacity = (SELECT max_capacity from MaxIndoor)
+ORDER BY bp.book_title ASC;

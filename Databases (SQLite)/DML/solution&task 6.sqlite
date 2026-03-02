@@ -1,0 +1,8 @@
+-- Да се напише DML израз со кој ќе се прикажат датумите на одржување и името на саемот, за сите одржани саеми кои се случиле на 
+-- локација од тип „OUTDOOR“ и каде што самата локација има капацитет помал од 500 посетители.
+
+SELECT hf.date as date, f.name as name
+FROM LOCATION as l
+JOIN FAIR as f ON l.location_id = f.location_id
+JOIN HELD_FAIR as hf ON f.fair_id = hf.fair_id
+WHERE capacity < 500 AND type LIKE "OUTDOOR"

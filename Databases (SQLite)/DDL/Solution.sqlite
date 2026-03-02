@@ -1,0 +1,72 @@
+create table DEPARTMENT(
+    dept_id INT PRIMARY KEY,
+    name TEXT
+);
+
+create table DOCTOR (
+    doctor_id int primary key, 
+    dept_id int, 
+    full_name text, 
+    contact text,
+    foreign key (dept_id) references DEPARTMENT(dept_id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+create table SURGEON (
+    doctor_id int primary key, 
+    speciality int NOT NULL, 
+    surgical_license text,
+    UNIQUE (surgical_license)
+    foreign key (doctor_id) references DOCTOR(doctor_id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+create table NURSE (
+    doctor_id int primary key, 
+    shift text DEFAULT DAY,
+    CHECK(shift IN('DAY','NIGHT')),
+    foreign key (doctor_id) references DOCTOR(doctor_id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+create table PATIENT (
+    patient_id int primary key, 
+    full_name text, 
+    contact text,
+    address text default 'Not provided'
+);  
+create table EMERGENCY_CONTACT (
+    patient_id int, 
+    em_contact_id int, 
+    full_name text, 
+    contact text, 
+    relation text,
+    PRIMARY KEY (patient_id, em_contact_id),
+    FOREIGN KEY (patient_id) references PATIENT(patient_id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+create table SURGERY (
+    surgeon_id int, 
+    nurse_id int, 
+    patient_id int, 
+    time text, 
+    procedure nvarchar(500) not null,
+    PRIMARY KEY (surgeon_id, nurse_id, patient_id),
+    UNIQUE(surgeon_id,nurse_id,patient_id),
+    FOREIGN KEY (surgeon_id) REFERENCES SURGEON(doctor_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (nurse_id) REFERENCES NURSE(doctor_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (patient_id) REFERENCES PATIENT(patient_id) ON DELETE SET NULL ON UPDATE CASCADE
+);
+create table CHECK_UP (
+    nurse_id int DEFAULT 1, 
+    patient_id int, 
+    check_date text, 
+    diagnosis text,
+    CHECK(substr(check_date, 1,4) = '2025')
+    PRIMARY KEY (nurse_id, patient_id, check_date),
+    FOREIGN KEY (nurse_id) REFERENCES NURSE(doctor_id) ON DELETE SET DEFAULT ON UPDATE CASCADE,
+    FOREIGN KEY (patient_id) REFERENCES PATIENT(patient_id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+create table PRESCRIPTIONS (
+    nurse_id int, 
+    patient_id int, 
+    check_date int, 
+    prescription text, 
+    dosage text,
+    CHECK((lower(trim(prescription)) = 'tablet' AND dosage GLOB '*[0-9]*mg') OR (lower(trim(prescription)) = 'fluid' AND dosage GLOB '*[0-9]*ml')),
+    PRIMARY KEY (nurse_id,patient_id,check_date, prescription),
+    FOREIGN KEY (nurse_id,patient_id,check_date) REFERENCES CHECK_UP(nurse_id,patient_id,check_date) ON DELETE CASCADE ON UPDATE CASCADE
+);

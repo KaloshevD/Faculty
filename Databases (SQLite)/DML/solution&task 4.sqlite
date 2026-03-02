@@ -1,0 +1,11 @@
+-- Да се напише DML израз со кој ќе се извадат информациите за авторите кои се промовирани од издавачи кои немаат ниту еден спонзор.
+SELECT a.*
+FROM AUTHOR as a
+JOIN Publisher_Promotion as pp on a.author_id = pp.author_id 
+JOIN Publisher as p on p.publisher_id = pp.publisher_id
+WHERE NOT EXISTS(
+ SELECT 1
+ FROM Publisher_Sponsor as s
+ WHERE p.publisher_id = s.publisher_id
+
+)

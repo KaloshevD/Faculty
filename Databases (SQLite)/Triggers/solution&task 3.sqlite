@@ -1,0 +1,38 @@
+-- За секој автор се чува изведен атрибут „num_fairs“ кој го означува бројот на саеми на кои имал промоција на книга.
+
+-- Да се напише/ат соодветниот/те тригер/и за одржување на конзистентноста на атрибутот „num_fairs“ при додавање и 
+-- отстранување промоции на книги.
+
+CREATE TRIGGER trg_insert_book_promotion_num_fairs
+AFTER INSERT ON Book_Promotion
+FOR EACH ROW
+WHEN NOT EXISTS (
+    SELECT 1
+    FROM Book_Promotion
+    WHERE author_id = NEW.author_id
+      AND fair_id = NEW.fair_id
+      AND date = NEW.date
+      AND rowid <> NEW.rowid
+)
+BEGIN
+    UPDATE Author
+    SET num_fairs = num_fairs + 1
+    WHERE author_id = NEW.author_id;
+END;
+
+CREATE TRIGGER trg_delete_book_promotion_num_fairs
+AFTER DELETE ON Book_Promotion
+FOR EACH ROW
+WHEN NOT EXISTS (
+    SELECT 1
+    FROM Book_Promotion
+    WHERE author_id = OLD.author_id
+      AND fair_id = OLD.fair_id
+      AND date = OLD.date
+)
+BEGIN
+    UPDATE Author
+    SET num_fairs = num_fairs - 1
+    WHERE author_id = OLD.author_id;
+END;
+

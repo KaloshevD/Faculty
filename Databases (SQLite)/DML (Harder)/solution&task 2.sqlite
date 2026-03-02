@@ -1,0 +1,15 @@
+-- Да се напише DML израз со кој ќе се излистаат информациита за сите саеми кои се одржувале на локации со капацитет 
+-- поголем од 1000. Притоа треба да се прикаќат информациите за името на саемот, локацијата на која е одрќан саемот, 
+-- како и бројот на книги кои биле промовирани/презентирани на тој саем. Резултатот треба да биде потреден според 
+-- бројот на презентирани книги во растечки редослед.
+
+SELECT
+    f.name AS fiar_name,
+    l.name AS location_name,
+    COUNT(bp.book_title) AS book_count
+FROM Fair f
+JOIN Location l ON f.location_id = l.location_id
+JOIN Book_Promotion bp ON f.fair_id = bp.fair_id
+WHERE l.capacity > 1000
+GROUP BY f.fair_id, f.name, l.name
+ORDER BY book_count ASC;
