@@ -1,0 +1,25 @@
+-- Да се напише/ат соодветниот/те тригер/и за одржување на референцијалниот интегритет на релацијата 
+-- „Book_Promotion“ доколку треба да се исполнети следните барања:
+
+-- Не сакаме да водиме евиденција за промоциите на автори и нивните издавачи на одржани саеми (Held_Fair) кои се
+-- избришани од системот.
+-- Сакаме да водиме евиденција за саемите (и соодветните издавачи) на кои учествувале автори кои се избришани од 
+-- системот. На место на избришаниот автор треба да се постави вредност -1.
+
+
+create trigger trg
+AFTER delete on held_fair
+for each row
+BEGIN
+    DELETE FROM Book_Promotion
+    Where fair_id = OLD.fair_id AND date = old.date;
+END;
+
+create trigger trg2
+AFTER Delete on Author
+for each row
+BEGIN
+    Update Book_Promotion
+    SET author_id =  -1
+    WHERE author_id = old.author_id;
+END;

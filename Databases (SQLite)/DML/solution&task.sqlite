@@ -1,0 +1,15 @@
+-- Да се напише DML израз со кој ќе се излистаат  името и националноста (без дупликати, односно само
+-- уникатни вредности) на сите автори кои презентирале книга која што добила оценка поголема од 6 и во 
+-- чија промоција учествувал издавач чије што име започнува со „New“, подредени според добиената оценка
+-- во растечки редослед.
+
+-- SELECT DISTINCT a.artistic_name, a.nationality,
+SELECT DISTINCT artistic_name, nationality
+FROM Author a
+JOIN Book_promotion as bp on a.author_id = bp.author_id
+JOIN Publisher as p on bp.publisher_id = p.publisher_id
+WHERE bp.rating > 6 AND p.name LIKE 'New%'
+ORDER BY bp.rating asc;
+
+-- WHERE bp.rating > 6 AND p.name LIKE 'New%'
+-- ORDER BY bp.rating ASC;

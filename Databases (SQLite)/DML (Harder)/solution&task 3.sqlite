@@ -1,0 +1,10 @@
+-- Да се напише DML израз со кој ќе се излистаат насловите на книгите кои се изложени на саеми чии што издавач има
+-- повеќе од 3 спонзори. Насловите на книгите потребно е да бидат сортирани во растечки редослед.
+
+SELECT DISTINCT book_title
+FROM book_promotion as bp
+JOIN publisher p on bp.publisher_id = p.publisher_id
+JOIN publisher_sponsor ps on p.publisher_id = ps.publisher_id
+GROUP BY p.publisher_id, book_title
+HAVING COUNT(ps.sponsor) > 3
+ORDER BY book_title ASC
