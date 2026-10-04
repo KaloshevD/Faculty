@@ -1,0 +1,111 @@
+<html>
+<head>
+  <style>
+    .red {
+      background-color: red; }
+    .blue {
+      color: blue; }
+    .green {
+      color: green;
+    }
+  </style>
+  <script
+        src="https://code.jquery.com/jquery-3.7.1.js"
+        integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+        crossorigin="anonymous"></script>
+</head>
+<body>
+<ol id="orderedlist">
+  <li>First element</li>
+  <li>Second element</li>
+  <li>Third element</li>
+  <li>Fourth element</li>
+  <li>Fifth element</li>
+  <li>Sixth element</li>
+</ol>
+<ol id="orderedlist2">
+  <h3>THIS IS THE SECOND LAST LIST</h3>
+  <li>First element, second list</li>
+  <li>Second element, second list</li>
+  <li>Third element, second list</li>
+  <li>Li with child ul
+    <ul>
+      <li>Child One</li>
+      <li>child two</li>
+    </ul>
+  </li>
+</ol>
+<ol id="orderedlist23">
+  <h3>THIS IS THE LAST LIST</h3>
+  <li>First element, second list</li>
+  <li>THIS IS IA NEW LIST THIS IS A NEW KLSTt, second list</li>
+  <li>Third element, second list</li>
+  <li>Li with child ul
+    <ul>
+      <li>Child One11</li>
+      <li>child two11</li>
+    </ul>
+  </li>
+  <li>Li with child ul
+    <ul>
+      <li>Child One22</li>
+      <li>child two22</li>
+    </ul>
+  </li>
+  <li>Li with child ul
+    <ul>
+      <li>SPECIAL CHILD</li>
+      <li>child two</li>
+    </ul>
+  </li>
+</ol>
+<button id="btn"> Show/Hide Lists </button>
+<br >
+<button style="margin-top: 50px" id="btn1"> Show/Hide Only Second Last List</button>
+<button id="btn2"> Show/Hide Only Last List </button>
+
+<script>
+  $(document).ready(function() {
+    // let classer = $("#orderedlist2").hide();
+    // let classer1 = $("#orderedlist23").hide();
+    // let btn = $("#btn").click(function (){
+    //   if(classer.css("display") === "none" && classer1.css("display") === "none") {
+    //     classer.show();
+    //     classer1.show();
+    //   }
+    //   else{
+    //     classer.hide();
+    //     classer1.hide();
+    //   }
+    // });
+    // let btn1 = $("#btn1").click(function (){
+    //   if(classer.css("display") === "none"){
+    //     classer.show();
+    //   }
+    //   else{
+    //     classer.hide();
+    //   }
+    // });
+    //
+    // let btn2 = $("#btn2").click(function (){
+    //   if(classer1.css("display") === "none"){
+    //     classer1.show();
+    //   }
+    //   else{
+    //     classer1.hide();
+    //   }
+    // });
+
+    //HOVER I DID IT HAHA
+    let firstOrderedList_Elements = $("#orderedlist li").hover(function (){$(this).addClass("green");}, function (){$(this).removeClass("green");});
+    console.log(firstOrderedList_Elements);
+    let firstOrderedList = $("#orderedlist")
+    firstOrderedList.find("li").each(function (i){ $(this).append(" Number " + i)});
+
+    let specialChildFinder = $("#orderedlist23").find("ul li").eq(4).addClass("blue");
+    console.log(specialChildFinder);
+
+  });
+</script>
+</body>
+</html>

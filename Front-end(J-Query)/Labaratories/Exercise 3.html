@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"
+            integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+            crossorigin="anonymous"></script>
+</head>
+<body>
+    <div style="background: #aaaaaa " id="nav_bar">
+        <h4>Navigaton Bar</h4>
+        <button id = "button1"> Tab 1 </button>
+        <button id = "button2"> Tab 2 </button>
+        <button id = "button3"> Tab 3 </button>
+    </div>
+    <div style="background: #fed22f; margin: 0" id="text_div">
+        <h4 style="margin: 0">Content bar</h4>
+        <p id="text1">
+            First text area starting.
+        </p>
+        <p id="text2">
+            Second text area box or whatever.
+        </p>
+        <p id="text3">
+            THis is the third text.
+        </p>
+    </div>
+    <script>
+        $(document).ready(function (){
+            $("#text2").hide()
+            $("#text3").hide()
+            $("#button2").click(function (){
+                $("#text1").hide()
+                $("#text3").hide()
+                $("#text2").show()
+            });
+            $("#button3").click(function (){
+                $("#text2").hide()
+                $("#text1").hide()
+                $("#text3").show()
+            });
+            $("#button1").click(function (){
+                $("#text2").hide()
+                $("#text3").hide()
+                $("#text1").show()
+            });
+        });
+    </script>
+</body>
+</html>
